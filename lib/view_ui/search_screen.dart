@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:my_eyesight/view_ui/wallpaper_details_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -48,11 +49,10 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Search your choices"),
-        titleTextStyle: TextStyle(color: Colors.grey[600], fontSize: 20),
-        backgroundColor: Colors.tealAccent,
+        title: const Text("Search your choices"),
+        titleTextStyle: const TextStyle(color: Colors.white, fontSize: 17),
+        backgroundColor: Colors.teal,
         elevation: 2.5,
-        iconTheme: IconThemeData(color: Colors.grey[600]),
       ),
       body: Column(
         children: [
@@ -62,7 +62,6 @@ class _SearchScreenState extends State<SearchScreen> {
               key: _formKey,
               child: TextFormField(
                 decoration: InputDecoration(
-                  // border: InputBorder.none,
                   hintText: "your intrest ...",
                   suffixIcon: IconButton(
                       onPressed: () {
@@ -89,12 +88,14 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
           ),
           Consumer<HomeScreenController>(builder: (context, wallpaper, _) {
-            print("Dheheheh $wallpaper");
             return Expanded(
-              // height: 200,
-              // width: 200,
               child: wallpaper.searchedWallpapers.photos == null
-                  ? Container()
+                  ? Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 12),
+                      alignment: Alignment.topLeft,
+                      child: const Text("Search our gallery now!"),
+                    )
                   : GridView.builder(
                       controller: _controller,
                       gridDelegate:
@@ -103,40 +104,87 @@ class _SearchScreenState extends State<SearchScreen> {
                               childAspectRatio: 3 / 2,
                               crossAxisSpacing: 5,
                               mainAxisSpacing: 8),
-                      padding:
-                          EdgeInsets.symmetric(vertical: 17, horizontal: 20),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 17, horizontal: 20),
                       itemCount: wallpaper.searchedWallpapers.photos!.length,
                       itemBuilder: (BuildContext ctx, index) {
-                        return InkWell(
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (ctx) => WallpaperDetailsScreen(
+                        return AnimationConfiguration.staggeredGrid(
+                          columnCount: 2,
+                          position: index,
+                          child: ScaleAnimation(
+                            duration: const Duration(milliseconds: 1000),
+                            child: FadeInAnimation(
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                          builder: (ctx) =>
+                                              WallpaperDetailsScreen(
+                                                imageUrl: wallpaper
+                                                    .searchedWallpapers
+                                                    .photos![index]
+                                                    .src!
+                                                    .portrait,
+                                                index: index,
+                                              )));
+                                },
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(18),
+                                  child: GridTile(
+                                    footer: GridTileBar(
+                                      backgroundColor: Colors.black26,
+                                      title: Text(
+                                          "${wallpaper.searchedWallpapers.photos![index].photographer}"),
+                                      leading:
+                                      const Icon(Icons.monochrome_photos),
+                                    ),
+                                    child: CachedNetworkImage(
+                                      progressIndicatorBuilder:
+                                          (context, url, progress) =>
+                                          Center(
+                                            child: CircularProgressIndicator(
+                                                value: progress.progress),
+                                          ),
+                                      fit: BoxFit.cover,
                                       imageUrl: wallpaper.searchedWallpapers
-                                          .photos![index].src!.portrait,
-                                      index: index,
-                                      isFromSearch: true,
-                                    )));
-                          },
-                          child: Card(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15)),
-                            elevation: 3,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(15),
-                              child: CachedNetworkImage(
-                                progressIndicatorBuilder:
-                                    (context, url, progress) => Center(
-                                  child: CircularProgressIndicator(
-                                    value: progress.progress,
+                                          .photos![index].src!.tiny!,
+                                    ),
                                   ),
                                 ),
-                                fit: BoxFit.cover,
-                                imageUrl: wallpaper.searchedWallpapers
-                                    .photos![index].src!.tiny!,
                               ),
                             ),
                           ),
                         );
+                        //   InkWell(
+                        //   onTap: () {
+                        //     Navigator.of(context).push(MaterialPageRoute(
+                        //         builder: (ctx) => WallpaperDetailsScreen(
+                        //               imageUrl: wallpaper.searchedWallpapers
+                        //                   .photos![index].src!.portrait,
+                        //               index: index,
+                        //               isFromSearch: true,
+                        //             )));
+                        //   },
+                        //   child: Card(
+                        //     shape: RoundedRectangleBorder(
+                        //         borderRadius: BorderRadius.circular(15)),
+                        //     elevation: 3,
+                        //     child: ClipRRect(
+                        //       borderRadius: BorderRadius.circular(15),
+                        //       child: CachedNetworkImage(
+                        //         progressIndicatorBuilder:
+                        //             (context, url, progress) => Center(
+                        //           child: CircularProgressIndicator(
+                        //             value: progress.progress,
+                        //           ),
+                        //         ),
+                        //         fit: BoxFit.cover,
+                        //         imageUrl: wallpaper.searchedWallpapers
+                        //             .photos![index].src!.tiny!,
+                        //       ),
+                        //     ),
+                        //   ),
+                        // );
                       }),
             );
           })

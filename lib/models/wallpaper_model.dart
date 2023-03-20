@@ -63,7 +63,7 @@ class Photo {
         width: json["width"],
         height: json["height"],
         url: json["url"],
-        photographer: json["photographer"],
+        photographer: json["photographer"] ?? "",
         photographerUrl: json["photographer_url"],
         photographerId: json["photographer_id"],
         avgColor: json["avg_color"],

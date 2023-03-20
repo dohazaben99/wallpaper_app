@@ -116,22 +116,27 @@ class HomeScreenController extends ChangeNotifier {
     List<Photo> favoritesList = [];
 
     if (wallpapers.photos != null) {
-      wallpapers.photos!.forEach((element) {
+      for (var element in wallpapers.photos!) {
         if (element.liked!) {
           favoritesList.add(element);
         }
-      });
+      }
     }
 
     if (searchedWallpapers.photos != null) {
-      searchedWallpapers.photos!.forEach((element) {
+      for (var element in searchedWallpapers.photos!) {
         if (element.liked!) {
           favoritesList.add(element);
         }
-      });
+      }
     }
 
     print("favorites list lenghth${favoritesList.length}");
     return favoritesList;
+  }
+
+  clearSearchList() {
+    searchedWallpapers = WallpaperModel();
+    notifyListeners();
   }
 }

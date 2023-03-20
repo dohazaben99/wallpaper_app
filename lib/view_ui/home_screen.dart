@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:my_eyesight/view_ui/wallpaper_details_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../logic/providers/home_screen_controller.dart';
-import '../models/wallpaper_model.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -26,7 +26,7 @@ class _MyHomePageState extends State<MyHomePage> {
               : true;
       if (loadVisible) {
         _controller.animateTo(_controller.position.maxScrollExtent - 10,
-            duration: Duration(microseconds: 1), curve: Curves.linear);
+            duration: const Duration(microseconds: 1), curve: Curves.linear);
         Provider.of<HomeScreenController>(context, listen: false)
             .loadMoreData();
       }
@@ -45,81 +45,108 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 2.5,
-          actions: [
-            IconButton(
-              icon: const Icon(
-                Icons.favorite,
-                color: Colors.pinkAccent,
-                size: 28,
-              ),
+        backgroundColor: Colors.grey[100]!.withOpacity(0.9),
+        floatingActionButton: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            FloatingActionButton.extended(
+              onPressed: () {
+                Provider.of<HomeScreenController>(context, listen: false)
+                    .clearSearchList();
+                Navigator.of(context).pushNamed("/search_screen");
+              },
+              label: const Text('Search'),
+              heroTag: "btn1",
+              icon: const Icon(Icons.search),
+              backgroundColor: Colors.pinkAccent,
+            ),
+            const SizedBox(height: 10),
+            FloatingActionButton.extended(
               onPressed: () {
                 Navigator.pushNamed(context, "/favorites_screen");
               },
+              heroTag: "btn2",
+              label: const Text('Favorites'),
+              icon: const Icon(
+                Icons.favorite_rounded,
+              ),
+              backgroundColor: Colors.pinkAccent,
             ),
-            SizedBox(width: 15),
           ],
         ),
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            // Add your onPressed code here!
-            Navigator.of(context).pushNamed("/search_screen");
-          },
-          label: const Text('Search'),
-          icon: const Icon(Icons.search),
-          backgroundColor: Colors.pinkAccent,
-        ),
-        body: Consumer<HomeScreenController>(builder: (context, wallpaper, _) {
-          return wallpaper.wallpapers.photos == null
-              ? const Center(child: CircularProgressIndicator())
-              : wallpaper.wallpapers.photos!.isEmpty
-                  ? const Center(
-                      child: Text("no images"),
-                    )
-                  : GridView.builder(
-                      controller: _controller,
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 17, horizontal: 20),
-                      gridDelegate:
-                          const SliverGridDelegateWithMaxCrossAxisExtent(
+        body: SafeArea(
+          child:
+              Consumer<HomeScreenController>(builder: (context, wallpaper, _) {
+            return wallpaper.wallpapers.photos == null
+                ? const Center(child: CircularProgressIndicator())
+                : wallpaper.wallpapers.photos!.isEmpty
+                    ? const Center(
+                        child: Text("no images"),
+                      )
+                    : AnimationLimiter(
+                        child: GridView.builder(
+                            controller: _controller,
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 17, horizontal: 8),
+                            gridDelegate:
+                                const SliverGridDelegateWithMaxCrossAxisExtent(
                               maxCrossAxisExtent: 250,
                               childAspectRatio: 3 / 2,
                               crossAxisSpacing: 5,
-                              mainAxisSpacing: 8),
-                      itemCount: wallpaper.wallpapers.photos!.length,
-                      itemBuilder: (BuildContext ctx, index) {
-                        return InkWell(
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (ctx) => WallpaperDetailsScreen(
-                                      imageUrl: wallpaper.wallpapers
-                                          .photos![index].src!.portrait,
-                                      index: index,
-                                    )));
-                          },
-                          child: Card(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15)),
-                            elevation: 3,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(15),
-                              child: CachedNetworkImage(
-                                progressIndicatorBuilder:
-                                    (context, url, progress) => Center(
-                                  child: CircularProgressIndicator(
-                                    value: progress.progress,
+                              mainAxisSpacing: 5,
+                            ),
+                            itemCount: wallpaper.wallpapers.photos!.length,
+                            itemBuilder: (BuildContext ctx, index) {
+                              return AnimationConfiguration.staggeredGrid(
+                                columnCount: 2,
+                                position: index,
+                                child: ScaleAnimation(
+                                  duration: const Duration(seconds: 2),
+                                  child: FadeInAnimation(
+                                    child: InkWell(
+                                      onTap: () {
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (ctx) =>
+                                                    WallpaperDetailsScreen(
+                                                      imageUrl: wallpaper
+                                                          .wallpapers
+                                                          .photos![index]
+                                                          .src!
+                                                          .portrait,
+                                                      index: index,
+                                                    )));
+                                      },
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(18),
+                                        child: GridTile(
+                                          footer: GridTileBar(
+                                            backgroundColor: Colors.black26,
+                                            title: Text(
+                                                "${wallpaper.wallpapers.photos![index].photographer}"),
+                                            leading:
+                                                Icon(Icons.monochrome_photos),
+                                          ),
+                                          child: CachedNetworkImage(
+                                            progressIndicatorBuilder:
+                                                (context, url, progress) =>
+                                                    Center(
+                                              child: CircularProgressIndicator(
+                                                  value: progress.progress),
+                                            ),
+                                            fit: BoxFit.cover,
+                                            imageUrl: wallpaper.wallpapers
+                                                .photos![index].src!.tiny!,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
-                                fit: BoxFit.cover,
-                                imageUrl: wallpaper
-                                    .wallpapers.photos![index].src!.tiny!,
-                              ),
-                            ),
-                          ),
-                        );
-                      });
-        }));
+                              );
+                            }),
+                      );
+          }),
+        ));
   }
 }
