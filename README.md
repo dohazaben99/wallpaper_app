@@ -19,6 +19,5 @@ samples, guidance on mobile development, and a full API reference.
 // TODO
 - custom splash screen
 - animation
-- pagination customization
-
+- pagination customization (loading when fetching data)
 

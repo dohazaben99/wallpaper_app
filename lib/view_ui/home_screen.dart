@@ -22,8 +22,8 @@ class _MyHomePageState extends State<MyHomePage> {
       bool loadVisible = !_controller.hasClients
           ? false
           : _controller.offset < _controller.position.maxScrollExtent
-              ? false
-              : true;
+          ? false
+          : true;
       if (loadVisible) {
         _controller.animateTo(_controller.position.maxScrollExtent - 10,
             duration: const Duration(microseconds: 1), curve: Curves.linear);
@@ -48,6 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Colors.grey[100]!.withOpacity(0.9),
         floatingActionButton: Column(
           mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             FloatingActionButton.extended(
               onPressed: () {
@@ -76,76 +77,77 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         body: SafeArea(
           child:
-              Consumer<HomeScreenController>(builder: (context, wallpaper, _) {
+          Consumer<HomeScreenController>(builder: (context, wallpaper, _) {
             return wallpaper.wallpapers.photos == null
                 ? const Center(child: CircularProgressIndicator())
                 : wallpaper.wallpapers.photos!.isEmpty
-                    ? const Center(
-                        child: Text("no images"),
-                      )
-                    : AnimationLimiter(
-                        child: GridView.builder(
-                            controller: _controller,
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 17, horizontal: 8),
-                            gridDelegate:
-                                const SliverGridDelegateWithMaxCrossAxisExtent(
-                              maxCrossAxisExtent: 250,
-                              childAspectRatio: 3 / 2,
-                              crossAxisSpacing: 5,
-                              mainAxisSpacing: 5,
-                            ),
-                            itemCount: wallpaper.wallpapers.photos!.length,
-                            itemBuilder: (BuildContext ctx, index) {
-                              return AnimationConfiguration.staggeredGrid(
-                                columnCount: 2,
-                                position: index,
-                                child: ScaleAnimation(
-                                  duration: const Duration(seconds: 2),
-                                  child: FadeInAnimation(
-                                    child: InkWell(
-                                      onTap: () {
-                                        Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                                builder: (ctx) =>
-                                                    WallpaperDetailsScreen(
-                                                      imageUrl: wallpaper
-                                                          .wallpapers
-                                                          .photos![index]
-                                                          .src!
-                                                          .portrait,
-                                                      index: index,
-                                                    )));
-                                      },
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(18),
-                                        child: GridTile(
-                                          footer: GridTileBar(
-                                            backgroundColor: Colors.black26,
-                                            title: Text(
-                                                "${wallpaper.wallpapers.photos![index].photographer}"),
-                                            leading:
-                                                Icon(Icons.monochrome_photos),
-                                          ),
-                                          child: CachedNetworkImage(
-                                            progressIndicatorBuilder:
-                                                (context, url, progress) =>
-                                                    Center(
-                                              child: CircularProgressIndicator(
-                                                  value: progress.progress),
-                                            ),
-                                            fit: BoxFit.cover,
-                                            imageUrl: wallpaper.wallpapers
-                                                .photos![index].src!.tiny!,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
+                ? const Center(
+              child: Text("no images"),
+            )
+                : AnimationLimiter(
+              child: GridView.builder(
+                  controller: _controller,
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 17, horizontal: 8),
+                  gridDelegate:
+                  const SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: 250,
+                    childAspectRatio: 3 / 2,
+                    crossAxisSpacing: 5,
+                    mainAxisSpacing: 5,
+                  ),
+                  itemCount: wallpaper.wallpapers.photos!.length,
+                  itemBuilder: (BuildContext ctx, index) {
+                    return AnimationConfiguration.staggeredGrid(
+                      columnCount: 2,
+                      position: index,
+                      child: ScaleAnimation(
+                        duration: const Duration(seconds: 2),
+                        child: FadeInAnimation(
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                      builder: (ctx) =>
+                                          WallpaperDetailsScreen(
+                                            imageUrl: wallpaper
+                                                .wallpapers
+                                                .photos![index]
+                                                .src!
+                                                .portrait,
+                                            index: index,
+                                          )));
+                            },
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(18),
+                              child: GridTile(
+                                footer: GridTileBar(
+                                  backgroundColor: Colors.black26,
+                                  title: Text(
+                                      "${wallpaper.wallpapers.photos![index]
+                                          .photographer}"),
+                                  leading:
+                                  Icon(Icons.monochrome_photos),
                                 ),
-                              );
-                            }),
-                      );
+                                child: CachedNetworkImage(
+                                  progressIndicatorBuilder:
+                                      (context, url, progress) =>
+                                      Center(
+                                        child: CircularProgressIndicator(
+                                            value: progress.progress),
+                                      ),
+                                  fit: BoxFit.cover,
+                                  imageUrl: wallpaper.wallpapers
+                                      .photos![index].src!.tiny!,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
+            );
           }),
         ));
   }
