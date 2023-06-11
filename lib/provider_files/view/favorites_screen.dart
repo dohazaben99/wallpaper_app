@@ -1,12 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:my_eyesight/logic/providers/home_screen_controller.dart';
+import 'package:my_eyesight/controller/providers/home_screen_controller.dart';
 import 'package:my_eyesight/models/wallpaper_model.dart';
-import 'package:my_eyesight/view_ui/wallpaper_details_screen.dart';
+import 'package:my_eyesight/view/wallpaper_details_screen.dart';
 import 'package:provider/provider.dart';
 
-import '../constans_config/app_assets.dart';
+import '../constants_config/app_assets.dart';
 
 class FavoritesScreen extends StatelessWidget {
   const FavoritesScreen({Key? key}) : super(key: key);
@@ -70,7 +70,7 @@ class FavoritesScreen extends StatelessWidget {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (ctx) => WallpaperDetailsScreen(
                                             imageUrl: snapshot
-                                                .data![index].src!.portrait,
+                                                .data![index].src!.portrait!,
                                             index: index,
                                           )));
                                 },
