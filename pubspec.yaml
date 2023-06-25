@@ -3,22 +3,32 @@ description: A new Flutter project.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-
 version: 1.0.0+1
 
 environment:
   sdk: '>=2.19.2 <3.0.0'
+
 dependencies:
   flutter:
     sdk: flutter
+
+#  core
   provider: ^6.0.5
+  get: ^4.6.5
+
+# storage
+  get_storage: ^2.1.1
+
+# UI
+  google_fonts: ^4.0.4
+
   http: ^0.13.5
   cached_network_image: ^3.2.3
+
   path: ^1.8.2
   path_provider: ^2.0.13
   flutter_staggered_animations: ^1.1.1
   animated_text_kit: ^4.2.2
-
 
   cupertino_icons: ^1.0.2
 

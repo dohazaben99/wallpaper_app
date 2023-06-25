@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:my_eyesight/view_ui/wallpaper_details_screen.dart';
+import 'package:my_eyesight/provider_files/controller/providers/home_screen_controller.dart';
+import 'package:my_eyesight/provider_files/view/wallpaper_details_screen.dart';
 import 'package:provider/provider.dart';
 
-import '../logic/providers/home_screen_controller.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -26,7 +26,7 @@ class _SearchScreenState extends State<SearchScreen> {
               : true;
       if (loadVisible) {
         _controller.animateTo(_controller.position.maxScrollExtent - 10,
-            duration: Duration(microseconds: 1), curve: Curves.linear);
+            duration: const Duration(microseconds: 1), curve: Curves.linear);
         print("dhdhhhdhd");
         Provider.of<HomeScreenController>(context, listen: false)
             .loadMoreSearchedData();
@@ -68,7 +68,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         _formKey.currentState!.save();
                         FocusScope.of(context).unfocus();
                       },
-                      icon: Icon(Icons.search)),
+                      icon: const Icon(Icons.search)),
                   hintStyle: TextStyle(
                     color: Colors.grey[400],
                   ),
@@ -82,7 +82,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 onFieldSubmitted: (value) {
                   print("submition value $value");
                   Provider.of<HomeScreenController>(context, listen: false)
-                      .fetchSearchedData(value!);
+                      .fetchSearchedData(value);
                 },
               ),
             ),
@@ -112,7 +112,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           columnCount: 2,
                           position: index,
                           child: ScaleAnimation(
-                            duration: const Duration(milliseconds: 1000),
+                            duration: const Duration(milliseconds: 700),
                             child: FadeInAnimation(
                               child: InkWell(
                                 onTap: () {
@@ -124,7 +124,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                                     .searchedWallpapers
                                                     .photos![index]
                                                     .src!
-                                                    .portrait,
+                                                    .portrait!,
                                                 index: index,
                                               )));
                                 },

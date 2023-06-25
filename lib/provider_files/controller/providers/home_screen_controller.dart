@@ -30,7 +30,7 @@ class HomeScreenController extends ChangeNotifier {
   }
 
   loadMoreData() async {
-    List<Photo> temp = [];
+    // List<Photo> temp = [];
     http.Response response = await http.get(
       Uri.parse(wallpapers.nextPage!),
       headers: {

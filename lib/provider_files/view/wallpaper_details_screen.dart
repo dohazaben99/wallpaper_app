@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:my_eyesight/provider_files/controller/providers/home_screen_controller.dart';
 import 'package:provider/provider.dart';
 
-import '../logic/providers/home_screen_controller.dart';
 
 class WallpaperDetailsScreen extends StatelessWidget {
-  final imageUrl;
+  final String imageUrl;
   final bool isFromSearch;
   final int index;
 
@@ -42,7 +42,7 @@ class WallpaperDetailsScreen extends StatelessWidget {
                   );
                 }),
           ),
-          SizedBox(width: 20)
+          const SizedBox(width: 20)
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
