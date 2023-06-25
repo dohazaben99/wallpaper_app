@@ -1,7 +1,7 @@
 
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:my_eyesight/constants_config/app_assets.dart';
+import 'package:my_eyesight/provider_files/constants_config/app_assets.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -30,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
           children: <Widget>[
             Center(
               child: Image.asset(
-                AppAssetsProvider.wallpaperSplash,
+                AppAssets.wallpaperSplash,
               ),
             ),
             Positioned(

@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:my_eyesight/controller/providers/home_screen_controller.dart';
+import 'package:my_eyesight/provider_files/controller/providers/home_screen_controller.dart';
 import 'package:provider/provider.dart';
 
 

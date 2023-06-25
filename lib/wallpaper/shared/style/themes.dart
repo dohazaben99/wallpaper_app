@@ -78,6 +78,8 @@ class AppThemes {
         fontSize: 12,
         fontWeight: FontWeight.w500,
       ),
-    ),
+    ).copyWith(
+        // fontstyle
+        ),
   );
 }

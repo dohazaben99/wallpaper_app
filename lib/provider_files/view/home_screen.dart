@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:my_eyesight/controller/providers/home_screen_controller.dart';
-import 'package:my_eyesight/view/wallpaper_details_screen.dart';
+import 'package:my_eyesight/provider_files/controller/providers/home_screen_controller.dart';
+import 'package:my_eyesight/provider_files/view/wallpaper_details_screen.dart';
 import 'package:provider/provider.dart';
 
 class MyHomePage extends StatefulWidget {

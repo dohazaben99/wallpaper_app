@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:my_eyesight/view/favorites_screen.dart';
-import 'package:my_eyesight/view/home_screen.dart';
-import 'package:my_eyesight/view/search_screen.dart';
+import 'package:my_eyesight/provider_files/view/favorites_screen.dart';
+import 'package:my_eyesight/provider_files/view/home_screen.dart';
+import 'package:my_eyesight/provider_files/view/search_screen.dart';
+
 
 
 final Map<String, Widget Function(BuildContext)> appRoutes = {

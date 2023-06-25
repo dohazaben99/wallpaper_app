@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_eyesight/constants_config/routes/app_routes.dart';
-import 'package:my_eyesight/view/splash_screen.dart';
+import 'package:my_eyesight/provider_files/constants_config/routes/app_routes.dart';
+import 'package:my_eyesight/provider_files/view/splash_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'controller/providers/home_screen_controller.dart';

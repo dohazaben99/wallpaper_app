@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:my_eyesight/constants_config/routes/app_routes.dart';
-import 'package:my_eyesight/view/splash_screen.dart';
-import 'package:provider/provider.dart';
-
-import 'controller/providers/home_screen_controller.dart';
+import 'package:get/get.dart';
+import 'package:my_eyesight/wallpaper/presentation/router/router.dart';
+import 'package:my_eyesight/wallpaper/presentation/router/routes.dart';
+import 'package:my_eyesight/wallpaper/shared/core/localization/translations.dart';
+import 'package:my_eyesight/wallpaper/shared/style/themes.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(const MyApp());
 }
 
@@ -14,18 +16,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider<HomeScreenController>(
-            create: (_) => HomeScreenController()),
-      ],
-      child: MaterialApp(
-        title: 'my eyesight',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(primarySwatch: Colors.blue),
-        home: const SplashScreen(),
-        routes: appRoutes,
-      ),
+    return GetMaterialApp(
+      title: 'my eyesight',
+      debugShowCheckedModeBanner: false,
+      getPages: AppRouter.routes,
+      initialRoute: AppRoutes.splashScreen,
+      translations: AppTranslation(),
+      locale: const Locale("en"),
+      theme: AppThemes.getTheme(),
     );
   }
 }

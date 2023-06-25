@@ -5,8 +5,12 @@ class AppColors {
   static const Color black = Colors.black;
   static const Color white = Colors.white;
   static const Color green = Colors.green;
-  static const Color red = Color(0xFFFF0000);
-  static const MaterialColor primary = MaterialColor(0xFFC0028B, primaryMaterial);
+  static const Color pink = Color(0xFFB93B91);
+  static const Color lightPurple = Color(0xFFA23BB9);
+  static const Color darkPurple = Color(0xFF633BB9);
+  static const Color blue = Color(0xFF3B52B9);
+  static const Color lightBlue = Color(0xFF3B91B9);
+  static const MaterialColor primary = MaterialColor(0xFFA23BB9, primaryMaterial);
   static const Color primaryLight = Color(0xFFF9E6F3);
   static const Color lightGray = Color(0xFFF7F7F7);
   static const Color blackBackground = Color(0xFF18191A);
