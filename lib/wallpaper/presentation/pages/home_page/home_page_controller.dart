@@ -84,4 +84,16 @@ class HomePageController extends GetxController {
       }
     });
   }
+
+  setIsFavorite(int index) {
+    // if (isFromSearch) {
+    //   searchedWallpapers.photos![index].liked =
+    //   !searchedWallpapers.photos![index].liked!;
+    // } else {
+      wallpapers!.photos![index].liked = !wallpapers!.photos![index].liked!;
+      print("is favoriete${wallpapers!.photos![index].liked}");
+    // }
+    update();
+  }
+
 }

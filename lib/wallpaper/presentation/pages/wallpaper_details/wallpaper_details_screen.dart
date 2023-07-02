@@ -1,5 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:my_eyesight/wallpaper/presentation/pages/home_page/home_page_controller.dart';
+import 'package:my_eyesight/wallpaper/presentation/pages/search_page/search_controller.dart';
 import 'package:my_eyesight/wallpaper/shared/style/colors.dart';
 
 class WallpaperDetailsScreen extends StatelessWidget {
@@ -22,26 +25,45 @@ class WallpaperDetailsScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         actions: [
+          isFromSearch ==false?
+          GetBuilder<HomePageController>(builder: (homeController) {
+            return
+
           IconButton(
               onPressed: () {
                 // Provider.of<HomeScreenController>(context, listen: false)
                 //     .setIsFavorite(index, isFromSearch);
-              },
-              icon: const Icon(Icons.favorite_border_rounded)
 
-              // Selector<HomeScreenController, bool>(
-              //     selector: (_, prov) => isFromSearch
-              //         ? prov.searchedWallpapers.photos![index].liked!
-              //         : prov.wallpapers.photos![index].liked!,
-              //     builder: (context, favorited, _) {
-              //       return Icon(
-              //         favorited
-              //             ? Icons.favorite_rounded
-              //             : Icons.favorite_border_rounded,
-              //         size: 30,
-              //       );
-              //     }),
-              ),
+
+                homeController.setIsFavorite(index);
+              },
+              icon: Icon(
+                homeController.wallpapers!.photos![index].liked!
+                    ? Icons.favorite_rounded
+                    : Icons.favorite_border_rounded,
+                size: 30,
+              )
+
+              );
+          }):
+          GetBuilder<SearchPageController>(builder: (searchController) {
+            return
+
+              IconButton(
+                  onPressed: () {
+                    // Provider.of<HomeScreenController>(context, listen: false)
+                    //     .setIsFavorite(index, isFromSearch);
+                    searchController.setIsFavorite(index);
+                  },
+                  icon: Icon(
+                    searchController.searchWallpapers!.photos![index].liked!
+                        ? Icons.favorite_rounded
+                        : Icons.favorite_border_rounded,
+                    size: 30,
+                  )
+
+              );
+          }),
           const SizedBox(width: 20)
         ],
       ),

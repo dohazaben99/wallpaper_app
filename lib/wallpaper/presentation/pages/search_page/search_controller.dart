@@ -67,6 +67,18 @@ class SearchPageController extends GetxController {
     });
   }
 
+
+  setIsFavorite(int index) {
+    // if (isFromSearch) {
+    //   searchedWallpapers.photos![index].liked =
+    //   !searchedWallpapers.photos![index].liked!;
+    // } else {
+    searchWallpapers!.photos![index].liked = !searchWallpapers!.photos![index].liked!;
+    print("is favoriete${searchWallpapers!.photos![index].liked}");
+    // }
+    update();
+  }
+
   clearSearchList() {
     searchWallpapers = WallpaperModel();
     update();

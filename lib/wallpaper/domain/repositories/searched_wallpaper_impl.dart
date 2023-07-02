@@ -37,8 +37,6 @@ class SearchedWallpaperRepositoryImplementation extends SearchWallpaperRepositor
     log("get searched data  ${response.body} \n");
     log("get searched data  ${response.statusCode} \n");
     if (response.statusCode == 200) {
-
-
       return wallpaperModelFromJson(response.body);
     } else {
       return null;

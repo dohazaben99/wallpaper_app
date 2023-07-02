@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:my_eyesight/wallpaper/presentation/pages/search_page/search_controller.dart';
+import 'package:my_eyesight/wallpaper/presentation/pages/wallpaper_details/wallpaper_details_screen.dart';
 import 'package:my_eyesight/wallpaper/shared/enums/screen_state_enums.dart';
 import 'package:my_eyesight/wallpaper/shared/style/colors.dart';
 
@@ -81,17 +82,18 @@ class SearchScreen extends GetView<SearchPageController> {
                                 child: FadeInAnimation(
                                   child: InkWell(
                                     onTap: () {
-                                      // Navigator.of(context).push(
-                                      //     MaterialPageRoute(
-                                      //         builder: (ctx) =>
-                                      //             WallpaperDetailsScreen(
-                                      //               imageUrl: controller
-                                      //                   .searchWallpapers!
-                                      //                   .photos![index]
-                                      //                   .src!
-                                      //                   .portrait!,
-                                      //               index: index,
-                                      //             )));
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (ctx) =>
+                                                  WallpaperDetailsScreen(
+                                                    imageUrl: controller
+                                                        .searchWallpapers!
+                                                        .photos![index]
+                                                        .src!
+                                                        .portrait!,
+                                                    index: index,
+
+                                                  )));
                                     },
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(18),
