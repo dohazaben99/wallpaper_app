@@ -5,9 +5,9 @@ class AppColors {
   static const Color black = Colors.black;
   static const Color white = Colors.white;
   static const Color green = Colors.green;
-  static const Color pink = Color(0xFFB93B91);
+  static const Color pink = Color(0xFFD072B2);
   static const Color lightPurple = Color(0xFFA23BB9);
-  static const Color darkPurple = Color(0xFF633BB9);
+  static const Color darkPurple = Color(0xFF6B44BE);
   static const Color blue = Color(0xFF3B52B9);
   static const Color lightBlue = Color(0xFF3B91B9);
   static const MaterialColor primary = MaterialColor(0xFFA23BB9, primaryMaterial);

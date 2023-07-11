@@ -1,11 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:my_eyesight/provider_files/view/wallpaper_details_screen.dart';
-import 'package:provider/provider.dart';
 
 import '../constants_config/app_assets.dart';
-import '../controller/providers/home_screen_controller.dart';
 
 class FavoritesScreen extends StatelessWidget {
   const FavoritesScreen({Key? key}) : super(key: key);
@@ -24,11 +19,13 @@ class FavoritesScreen extends StatelessWidget {
         height: double.infinity,
         width: double.infinity,
         decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage(
-                  AppAssets.backgroundImage,
-                ),
-                fit: BoxFit.fill)),
+          image: DecorationImage(
+            image: AssetImage(
+              AppAssets.backgroundImage,
+            ),
+            fit: BoxFit.fill,
+          ),
+        ),
         child: Center(),
         // FutureBuilder<List<Photo>>(
         //   future: Provider.of<HomeScreenController>(context, listen: false)
@@ -143,7 +140,6 @@ class FavoritesScreen extends StatelessWidget {
         //   },
         // ),
       ),
-      // ,
     );
   }
 }
