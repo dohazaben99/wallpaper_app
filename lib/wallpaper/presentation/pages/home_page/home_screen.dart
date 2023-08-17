@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
+import 'package:my_eyesight/wallpaper/shared/style/colors.dart';
 import 'package:my_eyesight/wallpaper/presentation/router/routes.dart';
 import 'package:my_eyesight/wallpaper/shared/enums/screen_state_enums.dart';
 import 'package:my_eyesight/wallpaper/presentation/pages/home_page/home_page_controller.dart';
 import 'package:my_eyesight/wallpaper/presentation/pages/wallpaper_details/wallpaper_details_screen.dart';
-import 'package:my_eyesight/wallpaper/shared/style/colors.dart';
 
 class MyHomePage extends GetView<HomePageController> {
   const MyHomePage({super.key});
